@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
-import { PiStudentBold } from "react-icons/pi";
+import { PiOfficeChair } from "react-icons/pi";
+import { FaHireAHelper } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
 import { auth } from "../config/firebase";
 
@@ -19,7 +21,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-gradient-to-b from-blue-700 to-indigo-800 p-4">
+    <nav className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4">
       <div className="container mx-auto flex justify-between items-center md:px-2">
         {/* Brand Logo */}
         <div>
@@ -27,7 +29,7 @@ const Navbar = () => {
             to="/"
             className="flex justify-center cursor-pointer items-center text-white md:text-2xl font-semibold"
           >
-            <PiStudentBold className="text-2xl md:text-4xl text-black" /> HireM
+            <FaHireAHelper className="text-2xl md:text-4xl text-black bg-white" />ireM
             <span className="text-black">atrix</span>
           </Link>
         </div>

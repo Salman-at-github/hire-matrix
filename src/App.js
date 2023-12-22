@@ -10,6 +10,7 @@ import ApplyForm from './components/ApplyForm';
 import SignUp from './components/SignUp';
 import Responses from './components/Responses';
 import Notification from './components/Notification';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       
       </Routes>
       <Notification/>
+      <Footer/>
       </Router>
     </div>
   );
