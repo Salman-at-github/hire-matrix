@@ -51,7 +51,7 @@ const Navbar = () => {
                   <ul className="absolute -top-2 -right-2 bg-blue-950 text-blue-400 w-40 rounded-md mt-2 space-y-2 px-5 py-2 shadow-md">
                     {user.displayName ? (
                       <li>
-                        <span className="block font-bold px-4 py-2 text-cyan-200">
+                        <span className="block text-lg font-bold px-4 py-2 text-cyan-200">
                           {user.displayName.length < 11 ? user.displayName : user.displayName.slice(0,16)+".."}
                         </span>
                       </li>

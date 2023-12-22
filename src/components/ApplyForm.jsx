@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { auth, db } from '../config/firebase';
-import { doc, getDoc, updateDoc, setDoc, collection, addDoc, getDocs, where, query } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, setDoc, collection, addDoc, getDocs, where, query, serverTimestamp, onSnapshot } from 'firebase/firestore';
 import { FaUser, FaEnvelope, FaPhone, FaLaptop, FaCity, FaGlobe, FaCheck } from 'react-icons/fa';
 
 const ApplyForm = () => {
   const { id } = useParams();
-  const navigateTo = useNavigate();
 
   const [jobDetails, setJobDetails] = useState(null);
   const [formData, setFormData] = useState({
@@ -18,24 +17,28 @@ const ApplyForm = () => {
     city: '',
     country: '',
     job: id, // Automatically set the job field with the job ID from params
-    status: "new",
-    submittedAt: new Date()
+    status: 'new',
+    submittedAt: null, // Will be set to server timestamp upon submission
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+
   useEffect(() => {
+    let unsubscribe; // Declare a variable to hold the unsubscribe function
+
     const fetchJobDetails = async () => {
       try {
-        // Reference to the job listing document in Firestore
         const jobDocRef = doc(db, 'job-listings', id);
-
-        // Fetch job details based on the job ID
         const jobSnapshot = await getDoc(jobDocRef);
 
-        // Check if the job exists
         if (jobSnapshot.exists()) {
-          // Process the snapshot data and update state
           const jobData = { id: jobSnapshot.id, ...jobSnapshot.data() };
           setJobDetails(jobData);
+
+          // Subscribe to snapshot changes (listener)
+          unsubscribe = onSnapshot(jobDocRef, (doc) => {
+            const updatedJobData = { id: doc.id, ...doc.data() };
+            setJobDetails(updatedJobData);
+          });
         } else {
           console.log('Job not found');
         }
@@ -45,6 +48,13 @@ const ApplyForm = () => {
     };
 
     fetchJobDetails();
+
+    // Cleanup function to unsubscribe when the component unmounts
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, [id]);
 
   const handleInputChange = (e) => {
@@ -77,7 +87,10 @@ const ApplyForm = () => {
       }
   
       // If no existing application found, proceed with adding a new document for the application
-      const newApplicationRef = await addDoc(jobApplicationsRef, formData);
+      const newApplicationRef = await addDoc(jobApplicationsRef, {
+        ...formData,
+        submittedAt: serverTimestamp(), // Set submittedAt to server timestamp
+      });
   
       // Update the job document to include the new application
       const jobDocRef = doc(db, 'job-listings', id);
@@ -91,7 +104,6 @@ const ApplyForm = () => {
       // Handle the error, e.g., display an error message to the user
     }
   };
-  
 
   return (
     <div className="min-h-screen p-8 bg-gradient-to-r from-blue-800 to-purple-800 flex justify-center items-center flex-col text-white">
@@ -107,6 +119,7 @@ const ApplyForm = () => {
           onSubmit={handleSubmit}
           className="flex justify-center items-center flex-col border-white rounded-md border min-h-96 w-full md:w-1/2 p-5 "
         >
+
           <div className="mb-4 w-full relative">
             <input
               type="text"

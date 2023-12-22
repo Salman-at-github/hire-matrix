@@ -55,7 +55,8 @@ const JobsList = () => {
         <ul className="space-y-4">
           {JobsListings.map((job) => (
             <li key={job.id} className="bg-white p-4 rounded-md shadow-md">
-              <h3 className="text-xl font-semibold">{job.title}</h3>
+              <h3 className="text-xl font-semibold mb-1">{job.title}</h3>
+              <h4 className="text-base text-gray-600 mb-2 font-semibold ">{job.organization? job.organization : ""}</h4>
               <p className="text-gray-600">{job.description}</p>
               <Link to={`/jobdetails/${job.id}`} className="text-blue-500 hover:underline block mt-2">
                 View Details

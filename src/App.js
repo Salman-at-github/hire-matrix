@@ -9,6 +9,7 @@ import JobsList from './components/JobsList';
 import ApplyForm from './components/ApplyForm';
 import SignUp from './components/SignUp';
 import Responses from './components/Responses';
+import Notification from './components/Notification';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <Route path='/jobs/response/:id/:title' element={<Responses/>}/>
       
       </Routes>
+      <Notification/>
       </Router>
     </div>
   );

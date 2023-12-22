@@ -6,6 +6,7 @@ import { auth } from '../config/firebase';
 
 const CreateJobList = () => {
   const [jobTitle, setJobTitle] = useState('');
+  const [organization, setOrganization] = useState('');
   const [description, setDescription] = useState('');
   const [requirements, setRequirements] = useState('');
   const navigateTo = useNavigate();
@@ -36,6 +37,7 @@ const CreateJobList = () => {
       // Add the job listing to Firestore
       const newJobListing = await addDoc(jobListingsRef, {
         title: jobTitle,
+        organization: organization,
         description: description,
         requirements: requirements,
         createdBy: auth.currentUser.uid,
@@ -44,6 +46,7 @@ const CreateJobList = () => {
 
       // Clear the form fields
       setJobTitle('');
+      setOrganization('')
       setDescription('');
       setRequirements('');
       navigateTo("/")
@@ -67,6 +70,17 @@ const CreateJobList = () => {
             id="jobTitle"
             value={jobTitle}
             onChange={(e) => setJobTitle(e.target.value)}
+            className="w-full p-2 mb-4 rounded-md"
+          />
+
+          <label htmlFor="jobTitle" className="text-white mb-2">
+            Organization
+          </label>
+          <input
+            type="text"
+            id="organization"
+            value={organization}
+            onChange={(e) => setOrganization(e.target.value)}
             className="w-full p-2 mb-4 rounded-md"
           />
 
