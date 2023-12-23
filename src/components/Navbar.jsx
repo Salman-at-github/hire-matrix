@@ -65,7 +65,7 @@ const Navbar = () => {
             </div>
           )}
           {showMenu && user && (
-            <ul className="absolute -top-2 -right-2 bg-blue-950 text-blue-400 w-40 rounded-md mt-2 space-y-2 px-5 py-2 shadow-md">
+            <ul className="absolute -top-2 -right-2 bg-blue-950 text-blue-400 w-40 rounded-md mt-2 space-y-2 px-5 py-2 shadow-md overflow-x-hidden">
               {user && user.displayName ? (
                 <li>
                   <span className="block text-lg font-bold px-4 py-2 text-cyan-200">

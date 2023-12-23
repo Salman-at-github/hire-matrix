@@ -83,6 +83,7 @@ const SignUp = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full p-2 mb-4 rounded-md"
+            autoComplete
           />
           <label htmlFor="password" className="mb-2">
             Password
@@ -93,6 +94,7 @@ const SignUp = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 mb-4 rounded-md"
+            autoComplete
           />
           <button
             type="submit"

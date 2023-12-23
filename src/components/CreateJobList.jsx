@@ -81,6 +81,7 @@ const CreateJobList = () => {
             value={jobTitle}
             onChange={(e) => setJobTitle(e.target.value)}
             className="w-full p-2 mb-4 rounded-md"
+            autoComplete
           />
 
           <label htmlFor="jobTitle" className=" mb-2">
@@ -92,6 +93,7 @@ const CreateJobList = () => {
             value={organization}
             onChange={(e) => setOrganization(e.target.value)}
             className="w-full p-2 mb-4 rounded-md"
+            autoComplete
           />
 
           <label htmlFor="description" className=" mb-2">
