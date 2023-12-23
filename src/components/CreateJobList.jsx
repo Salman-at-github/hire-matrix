@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { auth } from '../config/firebase';
+import toast from 'react-hot-toast';
 
 const CreateJobList = () => {
   const [jobTitle, setJobTitle] = useState('');
@@ -24,6 +25,7 @@ const CreateJobList = () => {
 
   const handleCreateJobListing = async (e) => {
     e.preventDefault();
+
     try {
       // Ensure user is logged in
       if (!auth.currentUser) {
@@ -35,25 +37,33 @@ const CreateJobList = () => {
       const jobListingsRef = collection(db, 'job-listings');
 
       // Add the job listing to Firestore
-      await addDoc(jobListingsRef, {
-        title: jobTitle,
-        organization: organization,
-        description: description,
-        requirements: requirements,
-        createdBy: auth.currentUser.uid,
-        createdAt: new Date(),
-      });
-
-      // Clear the form fields
-      setJobTitle('');
-      setOrganization('')
-      setDescription('');
-      setRequirements('');
-      navigateTo("/")
-
-      console.log('Job listing added successfully!');
+      await toast.promise(
+        addDoc(jobListingsRef, {
+          title: jobTitle,
+          organization: organization,
+          description: description,
+          requirements: requirements,
+          createdBy: auth.currentUser.uid,
+          createdAt: new Date(),
+        }),
+        {
+          loading: 'Creating job post...',
+          success: () => {
+            // Clear the form fields
+            setJobTitle('');
+            setOrganization('');
+            setDescription('');
+            setRequirements('');
+            navigateTo('/');
+            return 'Job post created successfully!';
+          },
+          error: (error) => {
+            return `Error creating job post: ${error.message}`;
+          },
+        }
+      );
     } catch (error) {
-      console.error('Error creating job listing:', error.message);
+      console.error('Error creating job post:', error.message);
     }
   };
 
@@ -105,7 +115,7 @@ const CreateJobList = () => {
           />
 
           <button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white hover:scale-105">
-            Create Job Listing
+            Create Job Post
           </button>
         </form>
       </div>

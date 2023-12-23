@@ -28,7 +28,6 @@ export const requestPermission =()=>{
     return getToken(messaging, { vapidKey:  process.env.REACT_APP_firebase_vapidKey})
     .then((currentToken) => {
       if (currentToken) {
-        console.log('current token for client: ', currentToken);
         // Perform any other necessary action with the token
       } else {
         // Show permission request UI

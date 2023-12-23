@@ -3,17 +3,19 @@ import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../../config/firebase';
 import { useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false); // Added loading state
   const navigateTo = useNavigate();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         navigateTo('/');
-      } 
+      }
     });
 
     // Cleanup the subscription when the component unmounts
@@ -22,20 +24,48 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when login starts
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      console.log('User logged in successfully!');
+      await toast.promise(
+        signInWithEmailAndPassword(auth, email, password),
+        {
+          loading: 'Logging in...',
+          success: () => {
+            setLoading(false); // Set loading to false when login is successful
+            return 'Logged in successfully!';
+          },
+          error: (error) => {
+            setLoading(false); // Set loading to false on error
+            return `Error logging in: ${error.message}`;
+          },
+        }
+      );
     } catch (error) {
-      console.error('Error logging in:', error.message);
+      setLoading(false); // Set loading to false on error
     }
   };
 
   const googleLogin = async () => {
+    setLoading(true); // Set loading to true when login starts
+
     try {
-      await signInWithPopup(auth, googleProvider);
+      await toast.promise(
+        signInWithPopup(auth, googleProvider),
+        {
+          loading: 'Logging in with Google...',
+          success: () => {
+            setLoading(false); // Set loading to false when login is successful
+            return 'Logged in with Google successfully!';
+          },
+          error: (error) => {
+            setLoading(false); // Set loading to false on error
+            return `Error logging in with Google: ${error.message}`;
+          },
+        }
+      );
     } catch (error) {
-      console.error('Error logging in with Google:', error.message);
+      setLoading(false); // Set loading to false on error
     }
   };
 
@@ -64,15 +94,22 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 mb-4 rounded-md"
           />
-          <button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white hover:scale-105">
-            Login
+          <button
+            type="submit"
+            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white hover:scale-105"
+            disabled={loading} // Disable the button when loading
+          >
+            {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-        <button onClick={googleLogin} className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white flex justify-center items-center gap-2 mt-3 hover:scale-105">
-          
-          <FaGoogle className='text-black text-xl'/>Login
+        <button
+          onClick={googleLogin}
+          className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white flex justify-center items-center gap-2 mt-3 hover:scale-105"
+          disabled={loading} // Disable the button when loading
+        >
+          <FaGoogle className="text-black text-xl" />Login
         </button>
-        <button onClick={() => navigateTo('/signup')} className='mt-4'>
+        <button onClick={() => navigateTo('/signup')} className="mt-4">
           Don't have an account? <span className="text-blue-600">Sign up now</span>
         </button>
       </div>

@@ -47,7 +47,7 @@ const JobsList = () => {
       };
   
       fetchJobsListings();
-      return unsubscribe;
+      return ()=> unsubscribe();
     }, [auth]);
   
     return (

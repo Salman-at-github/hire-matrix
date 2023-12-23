@@ -5,7 +5,8 @@ import { FaCheck, FaTimes, FaTrash, FaEye } from 'react-icons/fa';
 import { auth, db } from '../../config/firebase';
 import Application from '../Application';
 import { formatDistanceToNow } from 'date-fns';
-import CustomTooltip from '../CustomTooltip'
+import CustomTooltip from '../CustomTooltip';
+import toast from 'react-hot-toast';
 
 const Responses = () => {
   const { id, title } = useParams();
@@ -47,7 +48,7 @@ const Responses = () => {
 
     fetchApplications();
 
-    return ()=> unsubscribe();
+    return () => unsubscribe();
   }, [id]);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const Responses = () => {
     if (filter === 'all') {
       setFilteredApplications(applications);
     } else {
-      setFilteredApplications(applications.filter(app => app.status === filter));
+      setFilteredApplications(applications.filter((app) => app.status === filter));
     }
   }, [applications, filter]);
 
@@ -67,8 +68,11 @@ const Responses = () => {
       await updateDoc(applicationDocRef, {
         status: newStatus,
       });
+
+      toast.success(`Application status updated to ${newStatus}`);
     } catch (error) {
       console.error('Error updating application status:', error.message);
+      toast.error(`Error updating application status: ${error.message}`);
     }
   };
 
@@ -78,8 +82,11 @@ const Responses = () => {
 
       // Delete the application
       await deleteDoc(applicationDocRef);
+
+      toast.success('Application deleted successfully!');
     } catch (error) {
       console.error('Error deleting application:', error.message);
+      toast.error(`Error deleting application: ${error.message}`);
     }
   };
 
@@ -99,15 +106,17 @@ const Responses = () => {
   const handleCloseDetails = () => {
     setSelectedApplication(null);
   };
+
   const sortedFilteredApplications = filteredApplications.slice().sort((a, b) => b.submittedAt - a.submittedAt);
 
   return (
     <div className="min-h-screen p-8 flex flex-col text-center text-gray-200">
-      <h2 className="text-4xl font-semibold mb-8 text-white">Applications for: <span className='font-medium'>{title}</span></h2>
+      <h2 className="text-4xl font-semibold mb-8 text-white">
+        Applications for: <span className="font-medium">{title}</span>
+      </h2>
 
       <div className="flex justify-center items-center mb-4">
-        <label className="mr-4 text-white">Filter by:
-        </label>
+        <label className="mr-4 text-white">Filter by:</label>
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
@@ -132,13 +141,13 @@ const Responses = () => {
               <div className="flex justify-between items-center mb-2">
                 <p className="text-lg font-bold">{application.fullName}</p>
                 <div className="flex space-x-4 absolute top-3 right-3">
-                  <CustomTooltip text={"View Application"}>
+                  <CustomTooltip text={'View Application'}>
                     <FaEye
                       className="cursor-pointer text-lg hover:text-blue-500 hover:scale-125"
                       onClick={() => handleViewDetails(application)}
                     />
                   </CustomTooltip>
-                  <CustomTooltip text={"Delete Application"}>
+                  <CustomTooltip text={'Delete Application'}>
                     <FaTrash
                       className="cursor-pointer hover:text-red-500 hover:scale-125"
                       onClick={() => handleDelete(application.id)}
@@ -146,22 +155,41 @@ const Responses = () => {
                   </CustomTooltip>
                 </div>
               </div>
-              <p><span className='text-black font-semibold'>Email:</span> {application.email}</p>
-              <p><span className='text-black font-semibold'>Phone:</span> {application.phone}</p>
-              <p><span className='text-black font-semibold'>Status:</span> <span className={`${application.status === "rejected" ? "text-red-500" :application.status === "shortlisted" ? "text-green-400" :"text-yellow-300"}`}>{application.status.charAt(0).toUpperCase() + application.status.slice(1)}</span>
+              <p>
+                <span className="text-black font-semibold">Email:</span> {application.email}
               </p>
-              <p><span className='text-black font-semibold'>Submitted at:</span> {formatDate(application.submittedAt)}</p>
+              <p>
+                <span className="text-black font-semibold">Phone:</span> {application.phone}
+              </p>
+              <p>
+                <span className="text-black font-semibold">Status:</span>{' '}
+                <span
+                  className={`${
+                    application.status === 'rejected'
+                      ? 'text-red-500'
+                      : application.status === 'shortlisted'
+                      ? 'text-green-400'
+                      : 'text-yellow-300'
+                  }`}
+                >
+                  {application.status.charAt(0).toUpperCase() + application.status.slice(1)}
+                </span>
+              </p>
+              <p>
+                <span className="text-black font-semibold">Submitted at:</span>{' '}
+                {formatDate(application.submittedAt)}
+              </p>
 
               <div className="flex items-center mt-2">
                 {application.status === 'new' && (
                   <>
-                    <CustomTooltip text={"Shortlist application"}>
+                    <CustomTooltip text={'Shortlist application'}>
                       <FaCheck
                         className="cursor-pointer text-green-400 mr-4 hover:scale-125"
                         onClick={() => handleStatusChange(application.id, 'shortlisted')}
                       />
                     </CustomTooltip>
-                    <CustomTooltip text={"Reject application"}>
+                    <CustomTooltip text={'Reject application'}>
                       <FaTimes
                         className="cursor-pointer text-red-400 hover:scale-125"
                         onClick={() => handleStatusChange(application.id, 'rejected')}
@@ -176,10 +204,7 @@ const Responses = () => {
       </div>
 
       {selectedApplication && (
-        <Application
-          application={selectedApplication}
-          onClose={handleCloseDetails}
-        />
+        <Application application={selectedApplication} onClose={handleCloseDetails} />
       )}
     </div>
   );

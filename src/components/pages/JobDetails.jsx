@@ -118,7 +118,7 @@ const JobDetails = () => {
           <div className='absolute top-6 right-6'>
             <CustomTooltip text={"View Responses"} width={10}>
 
-          <div className='relative hover:scale-105'>
+          <div className='relative hover:scale-110'>
             <Link to={`/jobs/response/${id}/${jobDetails.title}`}><FaBell className='text-3xl'/> <span className={`rounded-full bg-red-700 px-2 py-[2px] absolute -top-4 -right-4 text-center ${responseCount <=0? "hidden": ""}`}>{responseCount}</span></Link>
           </div>
             </CustomTooltip>
