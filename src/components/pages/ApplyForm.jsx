@@ -106,7 +106,7 @@ const ApplyForm = () => {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-gradient-to-r from-blue-800 to-purple-800 flex justify-center items-center flex-col text-white">
+    <div className="min-h-screen p-8 flex justify-center items-center flex-col text-white">
       <h2 className="text-4xl font-bold mb-8">Apply for {jobDetails?.title}</h2>
 
       {formSubmitted ? (
@@ -117,7 +117,7 @@ const ApplyForm = () => {
       ) : (
         <form
           onSubmit={handleSubmit}
-          className="flex justify-center items-center flex-col border-white rounded-md border min-h-96 w-full md:w-1/2 p-5 "
+          className="flex justify-center bg-gradient-to-r from-blue-600 to-indigo-600 items-center flex-col border-white rounded-md border min-h-96 w-full md:w-1/2 p-5 "
         >
 
           <div className="mb-4 w-full relative">
@@ -218,7 +218,7 @@ const ApplyForm = () => {
             <FaGlobe className="absolute left-2 top-2 text-gray-500" />
           </div>
 
-          <button type="submit" className="bg-blue-400 p-2 rounded-md text-white hover:bg-blue-500">
+          <button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white hover:scale-105 border border-white">
             Submit Application
           </button>
         </form>
