@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { db } from '../config/firebase';
+import { db } from '../../config/firebase';
 import { collection, getDocs, where, query } from 'firebase/firestore';
-import { auth } from '../config/firebase';
+import { auth } from '../../config/firebase';
 import { FaBuilding, FaPlus } from 'react-icons/fa';
 import { FaRegMessage } from "react-icons/fa6";
-import { formatDate } from '../utils/utilities';
+import { formatDate } from '../../utils/utilities';
 
 const JobsList = () => {
     const [JobsListings, setJobsListings] = useState([]);
@@ -51,23 +51,23 @@ const JobsList = () => {
     }, [auth]);
   
     return (
-    <div className="min-h-screen p-8 bg-gradient-to-r from-blue-950 to-slate-800">
-      <h2 className="text-3xl font-bold mb-8 text-white md:my-8">Job Listings</h2>
+    <div className="min-h-screen p-8 text-white">
+      <h2 className="text-4xl font-bold mb-8 md:my-8 md:ml-10">Job Listings</h2>
 
       {JobsListings.length > 0 ? (
         <ul className="space-y-4">
           {JobsListings.map((job) => (
-            <li key={job.id} className="bg-gradient-to-r from-cyan-700 to-blue-700 text-white p-4 rounded-md shadow-md md:w-1/2 md:mx-auto">
+            <li key={job.id} className="bg-gradient-to-r from-blue-700 to-indigo-700 p-4 rounded-md shadow-md md:w-1/2 md:mx-auto">
               <h3 className="text-xl font-semibold mb-1">{job.title}</h3>
-              <h4 className="text-base text-yellow-300 mb-2 font-semibold flex justify-start items-center">
+              <h4 className="text-base text-black mb-2 font-semibold flex justify-start items-center">
                 {job.organization && (
                   <>
                     <FaBuilding />{job.organization}
                   </>
                 )}
               </h4>
-              <p className="text-gray-100 flex items-center gap-1"><FaRegMessage/>{job.description}</p>
-              <Link to={`/jobdetails/${job.id}`} className="text-green-300 hover:underline block mt-2">
+              <p className="flex items-center gap-1 my-1 text-gray-200"><FaRegMessage/>{job.description}</p>
+              <Link to={`/jobdetails/${job.id}`} className="text-green-400 hover:underline font-normal">
                 View Details
               </Link>
               <p className='font-light text-sm mt-2'>Posted on: {formatDate(job.createdAt)}</p>
@@ -81,9 +81,9 @@ const JobsList = () => {
       <div className="mt-8">
         <button
           onClick={() => navigateTo('/createjob')}
-          className="bg-black p-2 rounded-md text-white flex justify-center items-center gap-2 hover:bg-slate-800 md:z-50 md:fixed bottom-10 left-10 border border-white"
+          className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 p-2  rounded-md text-white hover:scale-105 md:fixed bottom-10 left-10 border border-white font-bold flex justify-center items-center"
         >
-          <FaPlus/>Add Job Listing
+          <span className='text-black flex justify-center items-center'><FaPlus />A</span>dd Job Listing
         </button>
       </div>
     </div>

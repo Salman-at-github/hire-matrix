@@ -35,7 +35,7 @@ const CreateJobList = () => {
       const jobListingsRef = collection(db, 'job-listings');
 
       // Add the job listing to Firestore
-      const newJobListing = await addDoc(jobListingsRef, {
+      await addDoc(jobListingsRef, {
         title: jobTitle,
         organization: organization,
         description: description,
@@ -58,11 +58,11 @@ const CreateJobList = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-800 via-indigo-800 to-purple-800">
-      <div className="bg-green-200 p-8 rounded-md shadow-md flex flex-col items-center">
-        <h2 className="text-2xl font-bold mb-4 text-white">Create Job Listing</h2>
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="bg-gradient-to-r from-blue-300 to-indigo-300 p-8 rounded-md shadow-md flex flex-col items-center w-full md:w-1/2">
+        <h2 className="text-2xl font-bold mb-4 ">Create Job Post</h2>
         <form onSubmit={handleCreateJobListing} className="flex flex-col items-center w-full">
-          <label htmlFor="jobTitle" className="text-white mb-2">
+          <label htmlFor="jobTitle" className=" mb-2">
             Job Title
           </label>
           <input
@@ -73,7 +73,7 @@ const CreateJobList = () => {
             className="w-full p-2 mb-4 rounded-md"
           />
 
-          <label htmlFor="jobTitle" className="text-white mb-2">
+          <label htmlFor="jobTitle" className=" mb-2">
             Organization
           </label>
           <input
@@ -84,7 +84,7 @@ const CreateJobList = () => {
             className="w-full p-2 mb-4 rounded-md"
           />
 
-          <label htmlFor="description" className="text-white mb-2">
+          <label htmlFor="description" className=" mb-2">
             Description
           </label>
           <textarea
@@ -94,7 +94,7 @@ const CreateJobList = () => {
             className="w-full p-2 mb-4 rounded-md"
           />
 
-          <label htmlFor="requirements" className="text-white mb-2">
+          <label htmlFor="requirements" className=" mb-2">
             Requirements
           </label>
           <textarea
@@ -104,7 +104,7 @@ const CreateJobList = () => {
             className="w-full p-2 mb-4 rounded-md"
           />
 
-          <button type="submit" className="bg-blue-400 p-2 rounded-md text-white">
+          <button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white hover:scale-105">
             Create Job Listing
           </button>
         </form>

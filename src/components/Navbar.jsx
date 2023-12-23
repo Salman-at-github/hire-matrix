@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
-import { PiOfficeChair } from "react-icons/pi";
 import { FaHireAHelper } from "react-icons/fa";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { auth } from "../config/firebase";
 
 const Navbar = () => {
@@ -19,6 +18,13 @@ const Navbar = () => {
     // Cleanup the subscription when the component unmounts
     return () => unsubscribe();
   }, []);
+
+  //close the menu automatically when page changes 
+   const location = useLocation()
+   const path = location.pathname;
+   useEffect(()=>{
+    setShowMenu(false)
+   },[path])
 
   return (
     <nav className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4">

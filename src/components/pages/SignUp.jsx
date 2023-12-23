@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../config/firebase';
+import { auth, googleProvider } from '../../config/firebase';
 import { useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 
@@ -29,8 +29,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-800 via-indigo-800 to-purple-800 text-white">
-      <div className="bg-green-200 p-8 rounded-md shadow-md flex flex-col items-center">
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-gradient-to-r from-blue-300 to-indigo-300 p-8 rounded-md shadow-md flex flex-col items-center">
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         <form onSubmit={handleSignUp} className="flex flex-col items-center w-full">
           <label htmlFor="email" className="mb-2">
@@ -53,16 +53,16 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 mb-4 rounded-md"
           />
-          <button type="submit" className="bg-blue-400 p-2 rounded-md">
+          <button type="submit" className="bg-gradient-to-r my-2 from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white hover:scale-105">
             Sign Up
           </button>
         </form>
-        <button onClick={googleSignup} className="bg-blue-400 p-2 mt-4 flex items-center rounded-md">
-          <FaGoogle className="mr-2" />
-          Sign Up with Google
+        <button onClick={googleSignup} className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white flex justify-center items-center gap-2 my-2 hover:scale-105">
+          
+            <FaGoogle className='text-black text-xl'/>Sign Up
         </button>
-        <button onClick={() => navigateTo('/login')} className="text-blue-400 mt-4">
-          Already have an account? Login now
+        <button onClick={() => navigateTo('/login')} className='mt-4'>
+          Have an account? <span className="text-blue-600">Login Now</span>
         </button>
       </div>
     </div>

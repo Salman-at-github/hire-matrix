@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../config/firebase';
+import { auth, googleProvider } from '../../config/firebase';
 import { useNavigate } from 'react-router-dom';
 import { FaGoogle } from 'react-icons/fa';
 
@@ -41,7 +41,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-950 via-indigo-950 to-purple-950">
-      <div className="bg-green-200 p-8 rounded-md shadow-md flex flex-col items-center">
+      <div className="bg-gradient-to-r from-blue-300 to-indigo-300 p-8 rounded-md shadow-md flex flex-col items-center">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <form onSubmit={handleLogin} className="flex flex-col items-center w-full">
           <label htmlFor="email" className="mb-2">
@@ -64,16 +64,16 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 mb-4 rounded-md"
           />
-          <button type="submit" className="bg-blue-400 p-2 rounded-md">
+          <button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white hover:scale-105">
             Login
           </button>
         </form>
-        <button onClick={googleLogin} className="bg-blue-400 p-2 mt-4 flex items-center rounded-md">
-          <FaGoogle className="mr-2" />
-          Login with Google
+        <button onClick={googleLogin} className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:bg-gradient-to-r hover:from-blue-800 hover:to-indigo-800 font-bold p-2  rounded-md text-white flex justify-center items-center gap-2 mt-3 hover:scale-105">
+          
+          <FaGoogle className='text-black text-xl'/>Login
         </button>
-        <button onClick={() => navigateTo('/signup')} className="text-blue-400 mt-4">
-          Don't have an account? Sign up now
+        <button onClick={() => navigateTo('/signup')} className='mt-4'>
+          Don't have an account? <span className="text-blue-600">Sign up now</span>
         </button>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { auth, db } from '../config/firebase';
-import { doc, getDoc, updateDoc, setDoc, collection, addDoc, getDocs, where, query, serverTimestamp, onSnapshot } from 'firebase/firestore';
+import { db } from '../../config/firebase';
+import { doc, getDoc, updateDoc, collection, addDoc, getDocs, where, query, serverTimestamp, onSnapshot } from 'firebase/firestore';
 import { FaUser, FaEnvelope, FaPhone, FaLaptop, FaCity, FaGlobe, FaCheck } from 'react-icons/fa';
 
 const ApplyForm = () => {
