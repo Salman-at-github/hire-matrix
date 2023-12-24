@@ -52,9 +52,8 @@ const JobDetails = () => {
           querySnapshot.forEach((doc) => {
             applicationsData.push({ id: doc.id, ...doc.data() });
           });
-          setResponseCount(applicationsData?.length);
-          console.log(responseCount)
-          console.log(applicationsData)
+          const newApplications = applicationsData?.filter((application)=>application.status === "new")
+          setResponseCount(newApplications?.length);
         });
 
         return () => unsubscribe(); // Unsubscribe from snapshot listener when component unmounts
