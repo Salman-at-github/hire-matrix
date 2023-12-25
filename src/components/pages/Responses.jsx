@@ -69,7 +69,7 @@ const Responses = () => {
         status: newStatus,
       });
 
-      toast.success(`Application status updated to ${newStatus}`);
+      toast.success(`Application ${newStatus}`);
     } catch (error) {
       console.error('Error updating application status:', error.message);
       toast.error(`Error updating application status: ${error.message}`);

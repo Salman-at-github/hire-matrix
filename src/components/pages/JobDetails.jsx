@@ -39,6 +39,12 @@ const JobDetails = () => {
         console.error('Error fetching job details:', error.message);
       }
     };
+    //Notification sound
+    const playBellSound = () => {
+      const audio = new Audio('/sounds/BellSound.mp3');
+      audio.volume =0.8;
+      audio.play();
+    };
     const fetchApplications = async () => {
       try {
         // Reference to the job applications collection
@@ -53,6 +59,9 @@ const JobDetails = () => {
             applicationsData.push({ id: doc.id, ...doc.data() });
           });
           const newApplications = applicationsData?.filter((application)=>application.status === "new")
+          if(newApplications.length > 0){
+            playBellSound();
+          }
           setResponseCount(newApplications?.length);
         });
 
