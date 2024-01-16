@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FaHireAHelper } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
 
 const Navbar = () => {
@@ -23,6 +23,8 @@ const Navbar = () => {
   useEffect(() => {
     setShowMenu(false);
   }, [path]);
+
+  const navigateTo = useNavigate()
 
   return (
     <nav className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4">
@@ -65,21 +67,21 @@ const Navbar = () => {
             </div>
           )}
           {showMenu && user && (
-            <ul className="absolute -top-2 -right-2 bg-blue-950 text-blue-400 w-40 rounded-md mt-2 space-y-2 px-5 py-2 shadow-md overflow-x-hidden">
+            <ul className="absolute -top-2 -right-2 bg-blue-950 text-blue-400  rounded-md mt-2 space-y-2 px-5 py-2 shadow-md overflow-x-hidden w-52 flex justify-center items-start flex-col ">
               {user && user.displayName ? (
-                <li>
-                  <span className="block text-lg font-bold px-4 py-2 text-cyan-200">
-                    {user.displayName.length < 11
+                <li className="w-full p-2 border-b border-white text-lg">
+                  <span className=" text-cyan-200">
+                    {user.displayName.length < 12
                       ? user.displayName
-                      : user.displayName.slice(0, 16) + ".."}
+                      : user.displayName.slice(0, 13) + ".."}
                   </span>
                 </li>
               ) : (
-                <li>
-                  <span className="block font-bold px-4 py-2">
-                    {user && user.email && user.email.length >= 15
+                <li className="w-full p-2 border-b border-white text-lg hover:cursor-pointer">
+                  <span className="text-cyan-200">
+                    {user && user.email && user.email.length <= 13
                       ? user.email
-                      : user.email && user.email.slice(0, 16) + ".."}
+                      : user.email && user.email.slice(0, 12) + ".."}
                   </span>
                 </li>
               )}
@@ -103,8 +105,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
-                    // Sign out logic
-                    auth.signOut();
+                    auth.signOut().then(()=>{navigateTo("/login")});
                   }}
                   className="block font-semibold hover:scale-110 hover:text-white px-4 py-2"
                 >
