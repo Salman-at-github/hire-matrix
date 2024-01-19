@@ -79,7 +79,7 @@ const SignUp = () => {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-gradient-to-r from-blue-300 to-indigo-300 p-8 rounded-md shadow-md flex flex-col items-center w-full md:w-[23rem]">
-        <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+        <h2 className="text-2xl font-bold mb-10">Sign Up</h2>
         <form onSubmit={handleSignUp} className="flex flex-col items-center w-full">
           <input
             type="text"
@@ -105,7 +105,7 @@ const SignUp = () => {
             type="password"
             value={cpassword}
             onChange={(e) => setCPassword(e.target.value)}
-            className="w-full p-2 mb-4 rounded-md border-[1.5px] border-black"
+            className="w-full p-2 mb-10 rounded-md border-[1.5px] border-black"
             autoComplete="true"
             placeholder='Confirm Password'
             required
