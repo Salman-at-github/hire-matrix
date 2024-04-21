@@ -93,10 +93,10 @@ const JobDetails = () => {
   };
 
   return (
-    <div className="min-h-screen p-8  flex md:justify-center items-center flex-col text-white">
-      <h2 className="text-4xl font-bold mb-8 md:my-8">Job Details</h2>
+    <div className="min-h-screen p-8  flex md:justify-center items-center flex-col">
+      <h2 className="text-4xl font-bold mb-8 md:my-8 text-white">Job Details</h2>
       {jobDetails ? (
-        <div className="relative flex justify-center items-start flex-col border-white rounded-md border min-h-96 w-full md:w-1/2 p-5 bg-gradient-to-r from-blue-800 to-indigo-800 ">
+        <div className="relative flex justify-center items-start flex-col border-black rounded-md border min-h-96 w-full md:w-1/2 p-5 bg-white ">
           <h3 className="text-3xl font-semibold mb-4">{jobDetails.title}</h3>
           <p className="mb-4 flex justify-center items-center">
             <FaBriefcase className="inline mr-2" />
@@ -108,15 +108,15 @@ const JobDetails = () => {
             {jobDetails.requirements}
           </p>
           <div className='self-center flex gap-8 items-center justify-between my-6'> 
-            <Link to={`/jobs/apply/${jobDetails.id}`} className='border hover:bg-blue-900 border-white rounded-md py-2 px-3 hover:scale-105'>Apply</Link>
+            <Link to={`/jobs/apply/${jobDetails.id}`} className='border hover:bg-blue-900 hover:text-white border-black rounded-md py-2 px-3 hover:scale-105'>Apply</Link>
           {
             !linkCopied ? (
-          <button onClick={copyToClipboard} className="flex justify-center hover:bg-blue-900 items-center  border border-white rounded-md py-2 px-3 hover:scale-105 w-[10rem]">
+          <button onClick={copyToClipboard} className="flex justify-center hover:bg-blue-900 hover:text-white items-center  border border-black rounded-md py-2 px-3 hover:scale-105 w-[10rem]">
             <FaLink className="mr-2" />
             Copy Job Link
           </button>
             ) : (
-                <button onClick={copyToClipboard} className="flex hover:bg-blue-900 justify-center items-center border border-white rounded-md py-2 px-3 hover:scale-105 w-[10rem]">
+                <button onClick={copyToClipboard} className="flex hover:bg-blue-900 hover:text-white justify-center items-center border border-black rounded-md py-2 px-3 hover:scale-105 w-[10rem]">
             <FaCheck className="mr-2" />
             Link Copied
           </button>
