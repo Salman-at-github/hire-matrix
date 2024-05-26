@@ -57,20 +57,20 @@ const JobsList = () => {
       {JobsListings.length > 0 ? (
         <ul className="space-y-4">
           {JobsListings.map((job) => (
-            <li key={job.id} className="bg-slate-100 p-4 rounded-md shadow-md md:w-1/2 md:mx-auto">
+            <li key={job.id} className="bg-white relative p-4 rounded-md shadow-md md:w-1/2 md:mx-auto">
               <h3 className="text-xl font-semibold mb-1 ">{job.title}</h3>
-              <h4 className="text-base text-gray-600 mb-3 font-semibold flex justify-start items-center">
+              <h4 className="text-base text-blue-400 mb-3 font-semibold flex justify-start items-center">
                 {job.organization && (
                   <>
                     <FaBuilding />{job.organization}
                   </>
                 )}
               </h4>
-              <p className="flex items-center gap-1 my-1"><FaRegMessage/>{job.description}</p>
-              <Link to={`/jobdetails/${job.id}`} className="text-green-400 hover:underline font-normal">
+              <p className="flex items-center gap-1 my-1 text-gray-500"><FaRegMessage/>{job.description}</p>
+              <Link to={`/jobdetails/${job.id}`} className="absolute bottom-6 right-6 text-green-400 hover:underline font-normal">
                 View Details
               </Link>
-              <p className='font-light text-sm mt-2'>{formatDate(job.createdAt)}</p>
+              <p className='font-light text-sm mt-2 text-gray-400'>{formatDate(job.createdAt)}</p>
             </li>
           ))}
         </ul>
